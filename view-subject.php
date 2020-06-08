@@ -6,8 +6,8 @@ if (!Helper::can('admin') && !Helper::can('manager')) {
 }
 if (isset($_GET['id'])) {
     $id = Helper::clearInt($_GET['id']);
-    $gruppa = (new GruppaMap())->findViewById($id);
-    $header = 'Просмотр группы';
+    $subject = (new SubjectMap())->findViewById($id);
+    $header = 'Просмотр предметов';
     require_once 'template/header.php';
     ?>
     <div class="row">
@@ -18,14 +18,14 @@ if (isset($_GET['id'])) {
                     <ol class="breadcrumb">
                         <li><a href="index.php"><i class="fafa-dashboard"></i> Главная</a></li>
 
-                        <li><a href="list-gruppa.php">Группы</a></li>
+                        <li><a href="list-subject.php">Предметы</a></li>
 
                         <li class="active"><?=$header;?></li>
                     </ol>
                 </section>
                 <div class="box-body">
 
-                    <a class="btn btn-success" href="add-gruppa.php?id=<?=$id;?>">Изменить</a>
+                    <a class="btn btn-success" href="add-subject.php?id=<?=$id;?>">Изменить</a>
 
                 </div>
                 <div class="box-body">
@@ -35,27 +35,22 @@ if (isset($_GET['id'])) {
                         <tr>
                             <th>Название</th>
 
-                            <td><?=$gruppa->name;?></td>
+                            <td><?=$subject->name;?></td>
 
                         </tr>
                         <tr>
 
-                            <th>Специальность</th>
+                            <th>Отделения</th>
 
-                            <td><?=$gruppa->special;?></td>
+                            <td><?=$subject->otdel;?></td>
 
                         </tr>
                         <tr>
 
-                            <th>Дата образования</th>
-                            <td><?=date("d.m.Y",
-                                    strtotime($gruppa->date_begin));?></td>
-                        </tr>
-                        <tr>
-                            <th>Дата окончания</th>
-                            <td><?=date("d.m.Y",
+                            <th>Часы</th>
 
-                                    strtotime($gruppa->date_end));?></td>
+                            <td><?=$subject->hours;?></td>
+
                         </tr>
                     </table>
                 </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 04 2020 г., 16:33
+-- Время создания: Июн 02 2020 г., 10:42
 -- Версия сервера: 10.3.22-MariaDB
 -- Версия PHP: 7.1.33
 
@@ -88,13 +88,6 @@ CREATE TABLE `gruppa` (
   `date_begin` date NOT NULL,
   `date_end` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `gruppa`
---
-
-INSERT INTO `gruppa` (`gruppa_id`, `name`, `special_id`, `date_begin`, `date_end`) VALUES
-(5, 'P-17-42B', 5, '2016-01-05', '2018-07-01');
 
 -- --------------------------------------------------------
 
@@ -210,7 +203,7 @@ CREATE TABLE `special` (
 INSERT INTO `special` (`special_id`, `name`, `otdel_id`, `active`) VALUES
 (1, 'Информационные системы', 1, 1),
 (2, 'Нефтегазовое дело', 2, 1),
-(3, 'Строительство и эксплуатация зданий и сооружений', 3, 1),
+(3, 'Строительство и эксплуатация\r\n\r\nзданий и сооружений', 3, 1),
 (4, 'Электроснабжение', 3, 1),
 (5, 'Вычислительная техника и программное обеспечение', 1, 1);
 
@@ -225,13 +218,6 @@ CREATE TABLE `student` (
   `gruppa_id` int(11) NOT NULL,
   `num_zach` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `student`
---
-
-INSERT INTO `student` (`user_id`, `gruppa_id`, `num_zach`) VALUES
-(11, 5, '232421213');
 
 -- --------------------------------------------------------
 
@@ -258,13 +244,6 @@ CREATE TABLE `teacher` (
   `otdel_id` smallint(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Дамп данных таблицы `teacher`
---
-
-INSERT INTO `teacher` (`user_id`, `otdel_id`) VALUES
-(10, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -289,9 +268,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `lastname`, `firstname`, `patronymic`, `login`, `pass`, `gender_id`, `birthday`, `role_id`, `active`) VALUES
-(1, 'Гурков', 'Сергей', 'Александрович', 'stiq', '$2y$10$mFlJsQgNvDQ27XfADrMh8O9OQA47f2gLmqYdwGeg8SpsvdoRUX95S', 1, '2001-06-26', 1, 1),
-(10, 'Моисеенко', 'Дмитрий', 'Юрьевич', 'majest', '$2y$10$7S2cVvkkbv3iJuSlJ4UqseLbzBCIux3JtjhiNxIRGurRHzSdeosUy', 1, '2001-03-15', 3, 1),
-(11, 'Мунько', 'Дмитрий', 'Сергеевич', 'DimNez', '$2y$10$gpaPdbg1ZNiXt8yEsytDt.hBiclaA1nXkSVtvP9hIBlp8c3dXXpSq', 1, '2342-04-23', 4, 1);
+(1, 'ДЭБИЛ', 'ИДИОТ', 'Кретин', 'idiot', 'idiot', 1, '2001-03-15', 1, 1),
+(2, 'Смит', 'Джон', 'Тимофеевич', 'admin', '$2y$10$mFlJsQgNvDQ27XfADrMh8O9OQA47f2gLmqYdwGeg8SpsvdoRUX95S', 1, '2001-03-15', 1, 1);
 
 --
 -- Индексы сохранённых таблиц
@@ -356,7 +334,7 @@ ALTER TABLE `schedule`
   ADD KEY `FK_schedule_lesson_plan_lesson_plan_id` (`lesson_plan_id`),
   ADD KEY `FK_schedule` (`lesson_num_id`),
   ADD KEY `FK_schedule_day_day_id` (`day_id`),
-  ADD KEY `FK_schedule2` (`classroom_id`);
+  ADD KEY `FK_schedule_classroom_classroom_id` (`classroom_id`);
 
 --
 -- Индексы таблицы `special`
@@ -402,7 +380,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT для таблицы `classroom`
 --
 ALTER TABLE `classroom`
-  MODIFY `classroom_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `classroom_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `day`
@@ -420,7 +398,7 @@ ALTER TABLE `gender`
 -- AUTO_INCREMENT для таблицы `gruppa`
 --
 ALTER TABLE `gruppa`
-  MODIFY `gruppa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `gruppa_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `lesson_num`
@@ -438,7 +416,7 @@ ALTER TABLE `lesson_plan`
 -- AUTO_INCREMENT для таблицы `otdel`
 --
 ALTER TABLE `otdel`
-  MODIFY `otdel_id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `otdel_id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `role`
@@ -456,19 +434,19 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT для таблицы `special`
 --
 ALTER TABLE `special`
-  MODIFY `special_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `special_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -492,7 +470,7 @@ ALTER TABLE `lesson_plan`
 --
 ALTER TABLE `schedule`
   ADD CONSTRAINT `FK_schedule` FOREIGN KEY (`lesson_num_id`) REFERENCES `lesson_num` (`lesson_num_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_schedule2` FOREIGN KEY (`classroom_id`) REFERENCES `classroom` (`classroom_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_schedule_classroom_classroom_id` FOREIGN KEY (`classroom_id`) REFERENCES `classroom` (`classroom_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_schedule_day_day_id` FOREIGN KEY (`day_id`) REFERENCES `day` (`day_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_schedule_lesson_plan_lesson_plan_id` FOREIGN KEY (`lesson_plan_id`) REFERENCES `lesson_plan` (`lesson_plan_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 

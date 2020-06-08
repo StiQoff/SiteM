@@ -4,16 +4,16 @@ if (!Helper::can('admin') && !Helper::can('manager')) {
     header('Location: 404.php');
     exit();
 }
-$size = 1;
+$size = 5;
 if (isset($_GET['page'])) {
     $page = Helper::clearInt($_GET['page']);
 } else {
     $page = 1;
 }
-$gruppaMap = new GruppaMap();
-$count = $gruppaMap->count();
-$gruppas = $gruppaMap->findAll($page*$size-$size, $size);
-$header = 'Список групп';
+$otdelMap = new OtdelMap();
+$count = $otdelMap->count();
+$otdels = $otdelMap->findAll($page*$size-$size, $size);
+$header = 'Список отделений';
 require_once 'template/header.php';
 ?>
     <div class="row">
@@ -22,58 +22,43 @@ require_once 'template/header.php';
                 <section class="content-header">
                     <h1><?=$header;?></h1>
                     <ol class="breadcrumb">
-                        <li><a href="/index.php"><i class="fafa-dashboard"></i> Главная</a></li>
+                        <li><a href="/index.php"><i class="fa fa-dashboard"></i> Главная</a></li>
                         <li class="active"><?=$header;?></li>
                     </ol>
                 </section>
                 <div class="box-body">
 
-                    <a class="btn btn-success" href="add-gruppa.php">Добавить группу</a>
+                    <a class="btn btn-success" href="add-otdel.php">Добавить отделение</a>
 
                 </div>
                 <div class="box-body">
                     <?php
-                    if ($gruppas) {
+                    if ($otdels) {
                         ?>
-
                         <table id="example2" class="table table-bordered table-hover">
-
                             <thead>
                             <tr>
                                 <th>Название</th>
-                                <th>Специальность</th>
-                                <th>Дата образования</th>
-                                <th>Дата окончания</th>
-
+                                <th>Статус</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
-                            foreach ($gruppas as $gruppa) {
+                            foreach ($otdels as $otdel) {
                                 echo '<tr>';
-
-                                echo '<td><a href="view-gruppa.php?id='.$gruppa->gruppa_id.'">'.$gruppa->name.'</a> '
-
-                                . '<a href="add-gruppa.php?id='.$gruppa->gruppa_id.'"><i class="fa fa-pencil"></i></a></td>';
-
-                                echo '<td>'.$gruppa->special.'</td>';
-
-                                echo '<td>'.date("d.m.Y",
-                                        strtotime($gruppa->date_begin)).'</td>';
-                                echo '<td>'.date("d.m.Y",
-                                        strtotime($gruppa->date_end)).'</td>';
+                                echo '<td><a href="view-otdel.php?id='.$otdel->otdel_id.'">'.$otdel->name.'</a> '. '<a href="add-otdel.php?id='.$otdel->otdel_id.'"><i class="fa fa-pencil"></i></a></td>';
+                                echo '<td>'.(($otdel->active) ? 'нет' : 'Да').'</td>';
                                 echo '</tr>';
-                                }
+                            }
                             ?>
                             </tbody>
                         </table>
                     <?php } else {
-                        echo 'Ни одной группы не найдено';
+                        echo 'Ни одного отделения не найдено';
                     } ?>
                 </div>
                 <div class="box-body">
-                    <?php Helper::paginator($count, $page,
-                        $size); ?>
+                    <?php Helper::paginator($count, $page,$size); ?>
                 </div>
             </div>
         </div>

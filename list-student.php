@@ -1,5 +1,9 @@
 <?php
 require_once 'secure.php';
+if (!Helper::can('admin') && !Helper::can('manager')) {
+    header('Location: 404.php');
+    exit();
+}
 $size = 1;
 if (isset($_GET['page'])) {
     $page = Helper::clearInt($_GET['page']);
@@ -41,8 +45,6 @@ require_once 'template/header.php';
                                 <th>Ф.И.О</th>
                                 <th>Пол</th>
                                 <th>Дата рождения</th>
-                                <th>Номер зачетки</th>
-                                <th>Отделение</th>
                                 <th>Роль</th>
                             </tr>
                             </thead>
@@ -57,9 +59,9 @@ require_once 'template/header.php';
                                 echo '<td>'.$student->gender.'</td>';
 
                                 echo '<td>'.$student->birthday.'</td>';
-                                echo '<td>'.$student->otdel.'</td>';
                                 echo '<td>'.$student->role.'</td>';
-                                echo '<td>'.$student->nomer_zach.'</td>';
+
+
                                 echo '</tr>';
 
                             }
